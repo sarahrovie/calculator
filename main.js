@@ -6,6 +6,7 @@ let num2 = '';
 let operator = '';
 const operators =  ['+', '-', '*', '/'];
 let values = [];
+let result = 0;
 
 function add(a, b) { return a + b; }
 
@@ -15,7 +16,7 @@ function multiply(a, b) { return a * b; }
 
 function divide(a, b) { return a / b; }
 
-function getValues(val) {
+function storeValues(val) {
     return values.push(val)
 }
 
@@ -24,14 +25,16 @@ function addToDisplay(btn) {
 
     if (value === 'clear') {
         display.textContent = ''
+        result = 0;
+        values = [];
     } else {
         display.textContent += value
-        getValues(value)
+        storeValues(value)
     }
     console.log(values)
 }
 
-function getNumbers() {
+function getValues() {
     const operatorIndex = values.findIndex(v => operators.includes(v))
     operator = values[operatorIndex];
     num1 = values.slice(0, operatorIndex).join('')
@@ -44,20 +47,24 @@ btns.forEach((btn) => {
         addToDisplay(btn);
 
         if (btn.id === '=') {
-            getNumbers();
+            getValues();
             operate(num1, operator, num2)
         }
     })
 })
 
 function operate(num1, operator, num2) {
+    num1 = parseInt(num1);
+    num2 = parseInt(num2);
+
     if (operator === '+') {
-        return add(num1, num2);
+        result += add(num1, num2);
     } else if (operator === '-') {
-        return subtract(num1, num2);
+        result += subtract(num1, num2);
     } else if (operator === '*') {
-        return multiply(num1, num2);
+        result += multiply(num1, num2);
     } else if (operator === '/') {
-        return divide(num1, num2);
+        result += divide(num1, num2);
     }
+    display.textContent += result;
 }
