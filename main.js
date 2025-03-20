@@ -1,11 +1,11 @@
 const btns = document.querySelectorAll('.btn');
 let display = document.querySelector('#display');
 
-let values = [];
 let num1 = '';
 let num2 = '';
 let operator = '';
 const operators =  ['+', '-', '*', '/'];
+let values = [];
 
 function add(a, b) { return a + b; }
 
@@ -31,9 +31,22 @@ function addToDisplay(btn) {
     console.log(values)
 }
 
+function getNumbers() {
+    const operatorIndex = values.findIndex(v => operators.includes(v))
+    operator = values[operatorIndex];
+    num1 = values.slice(0, operatorIndex).join('')
+    num2 = values.slice(operatorIndex + 1, -1).join('')
+    console.log(num1, operator, num2)
+}
+
 btns.forEach((btn) => {
     btn.addEventListener('click', () => {
-        addToDisplay(btn)
+        addToDisplay(btn);
+
+        if (btn.id === '=') {
+            getNumbers();
+            operate(num1, operator, num2)
+        }
     })
 })
 
