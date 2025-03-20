@@ -23,7 +23,7 @@ function storeValues(val) {
 function resetValues() {
     values = [];
     result = 0;
-    display.textContent = ''
+    display.textContent = '';
 }
 
 function addToDisplay(btn) {
@@ -41,9 +41,8 @@ function addToDisplay(btn) {
 function getValues() {
     const operatorIndex = values.findIndex(v => operators.includes(v))
     operator = values[operatorIndex];
-    num1 = values.slice(0, operatorIndex).join('')
-    num2 = values.slice(operatorIndex + 1, -1).join('')
-    console.log(num1, operator, num2)
+    num1 = parseInt(values.slice(0, operatorIndex).join(''))
+    num2 = parseInt(values.slice(operatorIndex + 1, -1).join(''))
 }
 
 btns.forEach((btn) => {
@@ -51,13 +50,27 @@ btns.forEach((btn) => {
         addToDisplay(btn);
 
         if (btn.id === '=') {
-            getValues()
+            getValues();
+            console.log(values);
             if (!num1 || !operator || !num2) {
                 alert('Please input at least two numbers and an operator!');
                 resetValues();
             }
-            else { 
+            else {
                 operate(num1, operator, num2);
+            }
+        }
+
+        if (operators.includes(btn.id)) {
+            getValues();
+            console.log(values);
+            if (num1 && operator && num2) {
+                resetValues();
+                operate(num1, operator, num2);
+                num1 = result;
+                operator = btn.id;
+                display.textContent += operator;
+                values.push(num1, operator);
             }
         }
     })
@@ -68,13 +81,15 @@ function operate(num1, operator, num2) {
     num2 = parseInt(num2);
 
     if (operator === '+') {
-        result += add(num1, num2);
+        result = add(num1, num2);
     } else if (operator === '-') {
-        result += subtract(num1, num2);
+        result = subtract(num1, num2);
     } else if (operator === '*') {
-        result += multiply(num1, num2);
+        result = multiply(num1, num2);
     } else if (operator === '/') {
-        result += divide(num1, num2);
+        result = divide(num1, num2);
     }
+
+    display.textContent = '';
     display.textContent += result;
 }
