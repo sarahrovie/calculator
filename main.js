@@ -7,6 +7,7 @@ let operator = '';
 const operators =  ['+', '-', '*', '/'];
 let values = [];
 let result = 0;
+const error = 'Why???';
 
 function add(a, b) { return a + b; }
 
@@ -25,12 +26,13 @@ function resetValues() {
 function addToDisplay(btn) {
     let value = btn.id 
 
-    if (value === 'clear') {
+    if (value === 'clear' || display.textContent === error) {
         resetValues();
     } else {
         display.textContent += value;
         values.push(value);
     }
+    console.log(values);
 }
 
 function getValues() {
@@ -80,6 +82,10 @@ function operate(num1, operator, num2) {
     } else if (operator === '*') {
         result = multiply(num1, num2);
     } else if (operator === '/') {
+        if (num2 === 0) {
+            display.textContent = error;
+            return;
+        }
         result = divide(num1, num2);
     }
 
