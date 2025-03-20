@@ -16,10 +16,6 @@ function multiply(a, b) { return a * b; }
 
 function divide(a, b) { return a / b; }
 
-function storeValues(val) {
-    return values.push(val);
-}
-
 function resetValues() {
     values = [];
     result = 0;
@@ -32,17 +28,16 @@ function addToDisplay(btn) {
     if (value === 'clear') {
         resetValues();
     } else {
-        display.textContent += value
-        storeValues(value)
+        display.textContent += value;
+        values.push(value);
     }
-    console.log(values)
 }
 
 function getValues() {
-    const operatorIndex = values.findIndex(v => operators.includes(v))
+    const operatorIndex = values.findIndex(v => operators.includes(v));
     operator = values[operatorIndex];
-    num1 = parseInt(values.slice(0, operatorIndex).join(''))
-    num2 = parseInt(values.slice(operatorIndex + 1, -1).join(''))
+    num1 = values.slice(0, operatorIndex).join('');
+    num2 = values.slice(operatorIndex + 1, -1).join('');
 }
 
 btns.forEach((btn) => {
@@ -51,7 +46,6 @@ btns.forEach((btn) => {
 
         if (btn.id === '=') {
             getValues();
-            console.log(values);
             if (!num1 || !operator || !num2) {
                 alert('Please input at least two numbers and an operator!');
                 resetValues();
@@ -63,7 +57,6 @@ btns.forEach((btn) => {
 
         if (operators.includes(btn.id)) {
             getValues();
-            console.log(values);
             if (num1 && operator && num2) {
                 resetValues();
                 operate(num1, operator, num2);
