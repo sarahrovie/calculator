@@ -17,16 +17,20 @@ function multiply(a, b) { return a * b; }
 function divide(a, b) { return a / b; }
 
 function storeValues(val) {
-    return values.push(val)
+    return values.push(val);
+}
+
+function resetValues() {
+    values = [];
+    result = 0;
+    display.textContent = ''
 }
 
 function addToDisplay(btn) {
     let value = btn.id 
 
     if (value === 'clear') {
-        display.textContent = ''
-        result = 0;
-        values = [];
+        resetValues();
     } else {
         display.textContent += value
         storeValues(value)
@@ -47,8 +51,14 @@ btns.forEach((btn) => {
         addToDisplay(btn);
 
         if (btn.id === '=') {
-            getValues();
-            operate(num1, operator, num2)
+            getValues()
+            if (!num1 || !operator || !num2) {
+                alert('Please input at least two numbers and an operator!');
+                resetValues();
+            }
+            else { 
+                operate(num1, operator, num2);
+            }
         }
     })
 })
