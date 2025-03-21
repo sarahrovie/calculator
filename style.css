@@ -21,7 +21,7 @@ body {
 
 #calculator {
     background-color: lightyellow;
-    height: 400px;
+    height: 430px;
     width:300px;
     display: flex;
     flex-direction: column;
@@ -32,7 +32,7 @@ body {
 }
 
 #display {
-    background-color: lightslategrey;
+    background-color: #778899;
     color: white;
     text-align: left;
     letter-spacing: 2px;
@@ -50,13 +50,25 @@ body {
 
 .btn {
     font-size: 18px;
-    color: rgb(29, 29, 29);
+    color: #1d1d1d;
     border-radius: 50%;
     border: none;
 }
 
-.btn#clear {
-    background-color: lightpink;
+.btn#clear, button#delete {
+    background-color: #ffb6c1;
+}
+
+button#delete {
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+#delete-icon {
+    height: 35px;
+    width: 35px;
 }
 
 #numbers-div .btn {
