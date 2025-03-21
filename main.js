@@ -26,6 +26,7 @@ function resetValues() {
 
 function addToDisplay(btn) {
     const value = btn.id 
+    const displayText = display.innerText.length;
 
     if (value === 'clear') {
         resetValues();
@@ -33,6 +34,13 @@ function addToDisplay(btn) {
         resetValues();
         display.textContent += value;
         values.push(value);
+    } else if (value == '.') {
+        if (values.includes('.')) {
+            return;
+        } else {
+            display.textContent += value;
+            values.push(value);
+        }
     } else {
         display.textContent += value;
         values.push(value);
@@ -47,8 +55,8 @@ function getValues() {
 }
 
 function operate(num1, operator, num2) {
-    num1 = parseInt(num1);
-    num2 = parseInt(num2);
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
 
     if (operator === '+') {
         result = add(num1, num2);
@@ -63,8 +71,15 @@ function operate(num1, operator, num2) {
         }
         result = divide(num1, num2);
     }
+    result = parseFloat(result.toFixed(2))
     display.textContent = '';
     display.textContent += result;
+}
+
+function isFloat(num) {
+    return /\d+\.\d+/.test(
+        num
+    );
 }
 
 btns.forEach((btn) => {
@@ -75,7 +90,9 @@ btns.forEach((btn) => {
             && display.textContent === result.toString()) {
             resetValues();
         }
+
         addToDisplay(btn);
+
 
         if (btnVal === '=') {
             getValues();
