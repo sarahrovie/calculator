@@ -1,4 +1,5 @@
 const btns = document.querySelectorAll('.btn');
+const deleteBtn = document.querySelector('#delete-btn');
 let display = document.querySelector('#display');
 
 let num1 = '';
@@ -22,6 +23,11 @@ function resetValues() {
     values = [];
     result = 0;
     display.textContent = '';
+}
+
+function backspace() {
+    values.pop();
+    display.textContent = display.textContent.slice(0, -1);
 }
 
 function addToDisplay(btn) {
@@ -74,6 +80,11 @@ function operate(num1, operator, num2) {
     display.textContent = '';
     display.textContent += result;
 }
+
+deleteBtn.addEventListener('click', () => {
+    values.pop();
+    display.textContent = display.textContent.slice(0, -1);
+});
 
 btns.forEach((btn) => {
     btn.addEventListener('click', () => {

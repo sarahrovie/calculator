@@ -9,7 +9,8 @@
     padding: 0;
 }
 
-#btns-div .btn:active {
+#btns-div .btn:active,
+#delete-btn:active {
     background-color: rgba(151, 167, 182, 0.555);
 }
 
@@ -59,11 +60,11 @@ body {
     border: none;
 }
 
-#clear, #delete {
+#clear, #delete-btn {
     background-color: #ffb6c1;
 }
 
-button#delete {
+button#delete-btn {
     height: 40px;
     width: 100%;
     border: none;
