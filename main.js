@@ -42,6 +42,17 @@ function backspace() {
   display.textContent = display.textContent.slice(0, -1);
 }
 
+function checkValue(value) {
+  const isNumber = numbers.includes(value);
+  const isOperator = operators.includes(value);
+
+  if (isNumber) {
+    return "number";
+  } else if (isOperator) {
+    return "operator";
+  }
+}
+
 function addToDisplay(value) {
   if (value === "clear") {
     resetValues();
@@ -97,7 +108,9 @@ function operate(num1, operator, num2) {
 }
 
 function handleOperate(value) {
-  if (numbers.includes(value) && display.textContent === result.toString()) {
+  let typeOfVal = checkValue(value);
+
+  if (typeOfVal === "number" && display.textContent === result.toString()) {
     resetValues();
   }
 
@@ -113,7 +126,7 @@ function handleOperate(value) {
     }
   }
 
-  if (operators.includes(value)) {
+  if (typeOfVal === "operator") {
     getValues();
     if (num1 && operator && num2) {
       resetValues();
@@ -135,9 +148,11 @@ btns.forEach((btn) => {
 //
 document.addEventListener("keydown", (e) => {
   const key = e.key;
+  let typeOfVal = checkValue(e.key);
+
   if (
-    numbers.includes(key) ||
-    operators.includes(key) ||
+    typeOfVal === "number" ||
+    typeOfVal === "operator" ||
     key === "Enter" ||
     key === "=" ||
     key === "."
