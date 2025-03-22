@@ -37,7 +37,6 @@ function backspace() {
   if (display.textContent === result.toString()) {
     resetValues();
   }
-
   values.pop();
   display.textContent = display.textContent.slice(0, -1);
 }
@@ -108,7 +107,7 @@ function operate(num1, operator, num2) {
 }
 
 function handleOperate(value) {
-  let typeOfVal = checkValue(value);
+  const typeOfVal = checkValue(value);
 
   if (typeOfVal === "number" && display.textContent === result.toString()) {
     resetValues();
@@ -145,10 +144,9 @@ btns.forEach((btn) => {
   btn.addEventListener("click", () => handleOperate(btn.id));
 });
 
-//
 document.addEventListener("keydown", (e) => {
   const key = e.key;
-  let typeOfVal = checkValue(e.key);
+  const typeOfVal = checkValue(e.key);
 
   if (
     typeOfVal === "number" ||
