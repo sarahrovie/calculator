@@ -34,6 +34,10 @@ function resetValues() {
 }
 
 function backspace() {
+  if (display.textContent === result.toString()) {
+    resetValues();
+  }
+
   values.pop();
   display.textContent = display.textContent.slice(0, -1);
 }
