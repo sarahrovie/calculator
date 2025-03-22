@@ -10,7 +10,7 @@
 }
 
 #btns-div .btn:active,
-#delete-btn:active {
+#backspace:active {
   background-color: rgba(151, 167, 182, 0.555);
 }
 
@@ -18,7 +18,6 @@ body {
   background-color: lightblue;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 22px;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -41,6 +40,7 @@ body {
   background-color: #778899;
   color: white;
   text-align: left;
+  font-size: 23px;
   letter-spacing: 2px;
   height: 50px;
   width: 100%;
@@ -55,38 +55,40 @@ body {
 }
 
 .btn {
-  font-size: 18px;
+  font-size: 23px;
   color: #1d1d1d;
   border-radius: 50%;
   border: none;
 }
 
 #clear,
-#delete-btn {
+#backspace {
   background-color: #ffb6c1;
+  color: #778899;
+  font-weight: bold;
 }
 
-button#delete-btn {
+button#backspace {
   height: 40px;
-  width: 100%;
+  width: 95%;
   border: none;
   border-radius: 10px;
 }
 
-#delete-icon {
+#backspace-icon {
   height: 35px;
   width: 35px;
 }
 
-#numbers-div .btn {
+#numbers-div .btn,
+#operators-div .btn {
   width: 60px;
   height: 60px;
 }
 
 #operators-div .btn {
-  background-color: lightblue;
-  width: 55px;
-  height: 55px;
+  background-color: #add8e6;
+  font-size: 30px;
 }
 
 #numbers-div {
@@ -99,5 +101,5 @@ button#delete-btn {
 #operators-div {
   display: flex;
   flex-flow: column;
-  gap: 4px;
+  gap: 8px;
 }

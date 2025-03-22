@@ -1,5 +1,5 @@
 const btns = document.querySelectorAll(".btn");
-const deleteBtn = document.querySelector("#delete-btn");
+const backspaceBtn = document.querySelector("#backspace");
 let display = document.querySelector("#display");
 
 let num1 = "";
@@ -138,7 +138,7 @@ function handleOperate(value) {
   }
 }
 
-deleteBtn.addEventListener("click", backspace);
+backspaceBtn.addEventListener("click", backspace);
 
 btns.forEach((btn) => {
   btn.addEventListener("click", () => handleOperate(btn.id));
