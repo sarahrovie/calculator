@@ -6,7 +6,7 @@ let num1 = "";
 let num2 = "";
 let operator = "";
 const operators = "+-*/";
-const numbers = "123456789";
+const numbers = "0123456789";
 let values = [];
 let result = 0;
 const error = "Why???";
@@ -38,9 +38,7 @@ function backspace() {
   display.textContent = display.textContent.slice(0, -1);
 }
 
-function addToDisplay(btn) {
-  const value = btn.id;
-
+function addToDisplay(value) {
   if (value === "clear") {
     resetValues();
   } else if (display.textContent === error) {
@@ -77,8 +75,10 @@ function operate(num1, operator, num2) {
       break;
     case "-":
       result = subtract(num1, num2);
+      break;
     case "*":
       result = multiply(num1, num2);
+      break;
     case "/":
       if (num2 === 0) {
         display.textContent = error;
@@ -92,41 +92,54 @@ function operate(num1, operator, num2) {
   display.textContent += result;
 }
 
-deleteBtn.addEventListener("click", () => {
-  values.pop();
-  display.textContent = display.textContent.slice(0, -1);
-});
+function handleOperate(value) {
+  if (numbers.includes(value) && display.textContent === result.toString()) {
+    resetValues();
+  }
+
+  addToDisplay(value);
+
+  if (value === "=" || value === "Enter") {
+    getValues();
+    if (!num1 || !operator || !num2) {
+      alert("Please input at least two numbers and an operator!");
+      resetValues();
+    } else {
+      operate(num1, operator, num2);
+    }
+  }
+
+  if (operators.includes(value)) {
+    getValues();
+    if (num1 && operator && num2) {
+      resetValues();
+      operate(num1, operator, num2);
+      num1 = result;
+      operator = value;
+      display.textContent += operator;
+      values.push(num1, operator);
+    }
+  }
+}
+
+deleteBtn.addEventListener("click", backspace);
 
 btns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const btnVal = btn.id;
+  btn.addEventListener("click", () => handleOperate(btn.id));
+});
 
-    if (numbers.includes(btnVal) && display.textContent === result.toString()) {
-      resetValues();
-    }
-
-    addToDisplay(btn);
-
-    if (btnVal === "=") {
-      getValues();
-      if (!num1 || !operator || !num2) {
-        alert("Please input at least two numbers and an operator!");
-        resetValues();
-      } else {
-        operate(num1, operator, num2);
-      }
-    }
-
-    if (operators.includes(btnVal)) {
-      getValues();
-      if (num1 && operator && num2) {
-        resetValues();
-        operate(num1, operator, num2);
-        num1 = result;
-        operator = btnVal;
-        display.textContent += operator;
-        values.push(num1, operator);
-      }
-    }
-  });
+//
+document.addEventListener("keydown", (e) => {
+  const key = e.key;
+  if (
+    numbers.includes(key) ||
+    operators.includes(key) ||
+    key === "Enter" ||
+    key === "=" ||
+    key === "."
+  ) {
+    handleOperate(key);
+  } else if (key === "Backspace") {
+    backspace();
+  }
 });
